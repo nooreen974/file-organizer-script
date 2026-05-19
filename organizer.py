@@ -6,10 +6,34 @@ from tkinter import Tk
 from tkinter.filedialog import askdirectory
 
 # =========================================================
-# UNDO LOG FILE
+# APPDATA STORAGE LOCATION
 # =========================================================
 
-UNDO_LOG = "undo_log.json"
+APP_FOLDER = os.path.join(
+
+    os.getenv("LOCALAPPDATA"),
+
+    "SmartFileOrganizer"
+)
+
+# Create application folder automatically
+os.makedirs(
+
+    APP_FOLDER,
+
+    exist_ok=True
+)
+
+# =========================================================
+# UNDO LOG FILE LOCATION
+# =========================================================
+
+UNDO_LOG = os.path.join(
+
+    APP_FOLDER,
+
+    "undo_log.json"
+)
 
 # =========================================================
 # CATEGORY DEFINITIONS
