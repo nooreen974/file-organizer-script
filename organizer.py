@@ -1,5 +1,7 @@
 import os
 import shutil
+import platform
+import subprocess
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
 
@@ -13,6 +15,10 @@ folder_path = askdirectory(title="Select Folder To Organize")
 if not folder_path:
     print("No folder selected!")
     exit()
+    
+delete_empty = input(
+    "Delete empty folders? (yes/no or y/n): "
+).strip().lower()
 
 # Walk through all folders and subfolders
 for root, dirs, files in os.walk(folder_path):
@@ -54,26 +60,50 @@ for root, dirs, files in os.walk(folder_path):
 
 print("File organization completed!")
 
-# Delete empty folders safely
-for root, dirs, files in os.walk(folder_path, topdown=False):
+# Delete empty folders if user wants
+if delete_empty in ["yes", "y"]:
 
-    # Skip main folder
-    if root == folder_path:
-        continue
+    print("\nChecking for empty folders...\n")
 
-    try:
+    for root, dirs, files in os.walk(folder_path, topdown=False):
 
-        # Check if folder is empty
-        if not os.listdir(root):
+        # Skip main folder
+        if root == folder_path:
+            continue
 
-            print(f"Deleting empty folder: {root}")
+        try:
 
-            os.rmdir(root)
+            # Check if folder empty
+            if not os.listdir(root):
 
-            print(f"Successfully deleted: {root}")
+                print(f"Deleting empty folder: {root}")
 
-    except Exception as error:
+                os.rmdir(root)
 
-        print(f"Could not delete folder: {root}")
+                print(f"Successfully deleted: {root}")
 
-        print(f"Reason: {error}")
+        except Exception as error:
+
+            print(f"Could not delete folder: {root}")
+
+            print(f"Reason: {error}")
+
+# Open organized folder automatically
+print("\nOpening organized folder...")
+
+try:
+
+    if platform.system() == "Windows":
+        os.startfile(folder_path)
+
+    elif platform.system() == "Darwin":
+        subprocess.run(["open", folder_path])
+
+    else:
+        subprocess.run(["xdg-open", folder_path])
+
+except Exception as error:
+
+    print(f"Could not open folder automatically.")
+
+    print(f"Reason: {error}")
