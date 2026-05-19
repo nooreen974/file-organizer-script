@@ -1,102 +1,62 @@
-# Smart File Organizer
+## Installation
 
-A beginner-friendly Python automation tool that automatically organizes messy folders into structured categories and extension-based folders.
+Make sure Python is installed on your system.
 
----
+Check Python version:
 
-## Features
-
-* Organize files by:
-
-  * Extension Wise
-  * Category Wise
-
-* Automatic folder creation
-
-* Duplicate filename handling
-
-* Duplicate content detection using file hashing
-
-* Undo last organization operation
-
-* Empty folder cleanup
-
-* File size display
-
-* Organized terminal table output
-
-* Human-readable summary report
-
----
-
-## Categories Supported
-
-* Documents
-* Images
-* Videos
-* Music
-* Archives
-* Programs
-* Others
-
----
-
-## Example Folder Structure
-
-### Extension Wise Mode
-
-```text
-Documents/
-├── PDF_Files/
-├── DOCX_Files/
-├── PPTX_Files/
-
-Images/
-├── PNG_Files/
-├── JPG_Files/
+```bash
+python --version
 ```
 
----
-
-## Technologies Used
-
-* Python
-* os
-* shutil
-* hashlib
-* json
-* tkinter
-
----
-
 ## How To Run
+
+Open terminal or command prompt inside the project folder and run:
 
 ```bash
 python organizer.py
 ```
 
----
-
-## Main Menu
+## Program Menu
 
 ```text
 1. Organize Folder
 2. Undo Last Operation
 ```
 
----
+## How To Use
 
-## Future Improvements
+### Organize Folder
 
-* Dark mode terminal UI
-* GUI desktop application
-* Drag & drop support
-* Real-time monitoring
-* Export reports
-* Cloud backup support
+1. Run the script
+2. Select:
 
----
+   * Organize Folder
+3. Choose the folder you want to organize
+4. Select organization mode:
 
-## Author
+   * Extension Wise
+   * Category Wise
+5. Choose whether to delete empty folders
+6. Files will automatically be organized
 
-**Nooreen Siddiqui**
+### Undo Last Operation
+
+If you want to restore files back to original locations:
+
+1. Run the script again
+2. Select:
+
+   * Undo Last Operation
+
+The script restores moved files using the undo log.
+
+## Example Output
+
+```text
+EXTENSION GROUP : PDF_Files
+
+FILE NAME                               | SIZE       | CATEGORY       | ORIGINAL PATH
+------------------------------------------------------------------------------------------------
+resume.pdf                              | 1.2 MB     | Documents      | D:/files
+notes.pdf                               | 850 KB     | Documents      | D:/downloads
+```
