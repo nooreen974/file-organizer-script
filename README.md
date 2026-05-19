@@ -140,6 +140,9 @@ notes.pdf                               | 850 KB     | Documents      | D:/downl
 * Export reports
 * Cloud backup support
 
+* Currently optimized for Windows systems.
+Cross-platform support for Linux and macOS planned in future versions.
+
 ## Author
 
 **Nooreen Siddiqui**
