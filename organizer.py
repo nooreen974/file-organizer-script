@@ -1,51 +1,79 @@
 import os
 import shutil
+from tkinter import Tk
+from tkinter.filedialog import askdirectory
 
-# Folder to organize
-folder_path = "test_folder"
+# Hide tkinter window
+Tk().withdraw()
 
-# File type folders
-file_types = {
-    "Images": [".jpg", ".jpeg", ".png", ".gif"],
-    "Documents": [".pdf", ".txt", ".docx"],
-    "Music": [".mp3", ".wav"],
-    "Videos": [".mp4", ".mkv"],
-    "Python_Files": [".py"]
-}
+# Select folder
+folder_path = askdirectory(title="Select Folder To Organize")
 
-# Get all files
-files = os.listdir(folder_path)
+# Check selection
+if not folder_path:
+    print("No folder selected!")
+    exit()
 
-# Loop through every file
-for file in files:
+# Walk through all folders and subfolders
+for root, dirs, files in os.walk(folder_path):
 
-    # Full file path
-    file_path = os.path.join(folder_path, file)
-
-    # Skip folders
-    if os.path.isdir(file_path):
+    # Skip already organized folders
+    if root.endswith("_Files"):
         continue
 
-    # Check file extensions
-    for folder_name, extensions in file_types.items():
+    # Process files
+    for file in files:
 
-        if file.lower().endswith(tuple(extensions)):
+        # Full file path
+        file_path = os.path.join(root, file)
 
-            # Create destination folder path
-            destination_folder = os.path.join(folder_path, folder_name)
+        # Get extension
+        extension = os.path.splitext(file)[1].lower()
 
-            # Create folder if not exists
-            if not os.path.exists(destination_folder):
-                os.makedirs(destination_folder)
+        # Skip files without extension
+        if extension == "":
+            continue
 
-            # Destination file path
-            destination_path = os.path.join(destination_folder, file)
+        # Folder name
+        folder_name = extension[1:].upper() + "_Files"
 
-            # Move file
-            shutil.move(file_path, destination_path)
+        # Destination folder in main selected directory
+        destination_folder = os.path.join(folder_path, folder_name)
 
-            print(f"{file} moved to {folder_name}")
+        # Create folder if missing
+        if not os.path.exists(destination_folder):
+            os.makedirs(destination_folder)
 
-            break
+        # Destination file path
+        destination_path = os.path.join(destination_folder, file)
+
+        # Move file
+        shutil.move(file_path, destination_path)
+
+        print(f"{file} moved to {folder_name}")
 
 print("File organization completed!")
+
+# Delete empty folders safely
+for root, dirs, files in os.walk(folder_path, topdown=False):
+
+    # Skip main folder
+    if root == folder_path:
+        continue
+
+    try:
+
+        # Check if folder is empty
+        if not os.listdir(root):
+
+            print(f"Deleting empty folder: {root}")
+
+            os.rmdir(root)
+
+            print(f"Successfully deleted: {root}")
+
+    except Exception as error:
+
+        print(f"Could not delete folder: {root}")
+
+        print(f"Reason: {error}")
