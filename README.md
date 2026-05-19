@@ -2,6 +2,8 @@
 
 A beginner-friendly Python automation tool that automatically organizes messy folders into structured categories and extension-based folders.
 
+---
+
 ## Features
 
 * Organize files by:
@@ -25,6 +27,8 @@ A beginner-friendly Python automation tool that automatically organizes messy fo
 
 * Human-readable summary report
 
+---
+
 ## Categories Supported
 
 * Documents
@@ -35,10 +39,13 @@ A beginner-friendly Python automation tool that automatically organizes messy fo
 * Programs
 * Others
 
+---
+
 ## Example Folder Structure
 
 ### Extension Wise Mode
 
+```text
 Documents/
 ├── PDF_Files/
 ├── DOCX_Files/
@@ -47,7 +54,9 @@ Documents/
 Images/
 ├── PNG_Files/
 ├── JPG_Files/
+```
 
+---
 
 ## Technologies Used
 
@@ -58,14 +67,24 @@ Images/
 * json
 * tkinter
 
+---
+
 ## How To Run
 
+```bash
 python organizer.py
+```
+
+---
 
 ## Main Menu
 
+```text
 1. Organize Folder
 2. Undo Last Operation
+```
+
+---
 
 ## Future Improvements
 
@@ -75,6 +94,8 @@ python organizer.py
 * Real-time monitoring
 * Export reports
 * Cloud backup support
+
+---
 
 ## Author
 
